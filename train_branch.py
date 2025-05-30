@@ -56,7 +56,7 @@ if __name__ == '__main__':
         student_backbone = 'tf_mobilenetv3_large_100.in1k'
         model = 'tf_efficientdet_d1'
         model_type = 'student'
-        model_size = 'large_100'
+        model_size = 'large_075'
         prefetcher = True
         wandb = False
 

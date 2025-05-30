@@ -36,9 +36,47 @@ Install requirements
 ## Dataset FLIR Aligned
 Download from [my drive](https://drive.google.com/file/d/1i6iWs2OUVbbKEUOEnORfBJpoI525Guwy/view?usp=sharing)
 Unzip and put it in folder dataset
-```
+```bash
   unzip FLIR_Aligned.zip
   cd /path/to/project/
   mkdir dataset
   cp /path/to/dataset/FLIR_Aligned /path/to/project/dataset/FLIR_Aligned
 ```
+## Training Pipeline
+### 1. Training individual branch with type of image (RGB or thermal) respectively for each type of model (teacher and student)
+- file: `train_branch.py`
+- change values of *class Arg*
+```python
+class Args:
+    branch = 'rgb' # rgb or thermal
+    dataset = 'flir_aligned_rgb' # flir_aligned_rgb or flir_aligned_thermal
+    model_type = 'student' # teacher or student
+    prefetcher = True # for use gpu or not
+    wandb = True # to save image of evaluation phase
+```
+```bash
+  # run
+  python3 train_branch.py
+```
+- checkpoint results will be save to example path: `output/{model_type}/{branch}/train_flir/EXP_FLIR_ALIGNED_{BRANCH}_CBAM/model_best.pth`
+
+### 2. Training *fusion model* for each type of model (teacher and student)
+- file: `train_fuion.py`
+- change values of *class Arg*
+```python
+class Args:
+    branch = 'fusion'
+    dataset = 'flir_aligned_full' # flir_aligned_rgb or flir_aligned_thermal
+    model_type = 'teacher' # teacher or student
+    prefetcher = True # for use gpu or not
+    wandb = True # to save image of evaluation phase
+    teacher_thermal_checkpoint_path = 'path/to/checkpoint/' # checkpoint path get from step 1
+    student_thermal_checkpoint_path = 'path/to/checkpoint/'
+    teacher_rgb_checkpoint_path = 'path/to/checkpoint/'
+    student_rgb_checkpoint_path = 'path/to/checkpoint/'
+```
+```bash
+  # run
+  python3 train_fusion.py
+```
+- result will be save to example path: `output/{model_type}/fusion/train_flir/EXP_FLIR_ALIGNED_FULL_CBAM/model_best.pth`

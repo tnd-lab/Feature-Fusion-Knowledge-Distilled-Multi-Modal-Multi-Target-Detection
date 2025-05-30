@@ -56,9 +56,9 @@ if __name__ == '__main__':
         teacher_checkpoint = 'output/teacher/fusion/train_flir/EXP_FLIR_ALIGNED_FULL_CBAM/model_best.pth.tar'
         student_checkpoint = None
         output = ''
-        save = 'EXP2'
+        save = 'EXP'
         model = 'tf_efficientdet_d1'
-        student_backbone = 'tf_mobilenetv3_large_100.in1k'
+        student_backbone = 'tf_mobilenetv3_large_075.in1k'
         lambda_reg = 0.5
         temperature = 4.0
         lambda_cls = 0.5

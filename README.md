@@ -54,8 +54,8 @@ class Args:
     prefetcher = True # for use gpu or not
     wandb = True # to save image of evaluation phase
 ```
+- run script
 ```bash
-  # run
   python3 train_branch.py
 ```
 - checkpoint results will be save to example path: `output/{model_type}/{branch}/train_flir/EXP_FLIR_ALIGNED_{BRANCH}_CBAM/model_best.pth`
@@ -75,8 +75,43 @@ class Args:
     teacher_rgb_checkpoint_path = 'path/to/checkpoint/'
     student_rgb_checkpoint_path = 'path/to/checkpoint/'
 ```
+- run script
 ```bash
-  # run
   python3 train_fusion.py
 ```
 - result will be save to example path: `output/{model_type}/fusion/train_flir/EXP_FLIR_ALIGNED_FULL_CBAM/model_best.pth`
+
+### 3. Training *student model*
+- file: `train_student.py`
+- change values of *class Arg*
+```python
+class Args:
+    branch = 'fusion'
+    dataset = 'flir_aligned_full' # flir_aligned_rgb or flir_aligned_thermal
+    prefetcher = True # for use gpu or not
+    wandb = True # to save image of evaluation phase
+    student_thermal_checkpoint_path = 'path/to/checkpoint/' # checkpoint path get from step 1
+    student_rgb_checkpoint_path = 'path/to/checkpoint/'
+    teacher_checkpoint = 'path/to/checkpoint/'  # checkpoint path get from step 2
+```
+- run script
+```bash
+  python3 train_fusion.py
+```
+- result will be save to example path: `output/student/distilled/train_flir/EXP_FLIR_ALIGNED_FULL_CBAM/model_best.pth`
+## Evaluation
+### Evaluate trained *student model*
+- file: `val_fusion.py`
+- change values of *class Arg*
+```python
+class Args:
+    branch = 'fusion'
+    dataset = 'flir_aligned_full'
+    model_type = 'student' # teacher or student
+    prefetcher = True # for use gpu or not
+    checkpoint = '/path/to/student/trained/checkpoint/model_best.pth.tar'
+```
+- run script
+```bash
+  python3 val_fusion.py
+```

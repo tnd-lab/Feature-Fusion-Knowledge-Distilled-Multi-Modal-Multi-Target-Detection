@@ -7,7 +7,29 @@
 ## Abstract
 In the surveillance and defense domain, multi-target detection and classification (MTD) is considered essential yet challenging due to heterogeneous inputs from diverse data sources and the computational complexity of algorithms designed for resource-constrained embedded devices, particularly for AI-based solutions. To address these challenges, we propose a knowledge-distilled fusion framework for multi-modal MTD that leverages data fusion to enhance accuracy and employs knowledge distillation for improved domain adaptation. Specifically, our approach utilizes both RGB and thermal image inputs within a novel fusion-based multi-modal model, coupled with a distillation training pipeline. We formulate the problem as a posterior probability optimization task, which is solved through a multi-stage training pipeline supported by a composite loss function. This loss function effectively transfers knowledge from a teacher model to a student model. Experimental results demonstrate that our student model achieves approximately 95% of the teacher model’s mean Average Precision while reducing inference time by approximately 50%, underscoring its suitability for practical MTD deployment scenarios.
 
-## Code
+## Project Structure
+
+```css
+Feature-Fusion-Knowledge-Distilled-Multi-Modal-Multi-Target-Detection/
+├── README.md               /* Project description, usage guide, and examples */
+├── requirements.txt        /* List of required Python packages */
+├── dataset/                /* Folder containing input data */
+│   └── FLIR_ALIGNED        /* Preprocessed or aligned dataset */
+├── models/                 /* Model architecture and fusion methods */
+│   ├── model.py            /* Main model definition */
+│   ├── loss.py             /* Loss function definitions */
+│   ├── fusion.py           /* Feature fusion modules */
+│   └── bench.py            /* Benchmarking or inference utilities */
+├── utils/                  /* Utility functions (e.g., metrics, visualization) */
+│   └──                     /* Utilization files */
+└── dataloader/             /* Data loading logic for training/inference */
+│   └──                     
+├── train_branch.py         /* Train single branch model */
+├── train_fusion.txt        /* Train fusion model */
+├── train_student.md        /* Train student model */
+├── val_fusion.py           /* Evaluation file */
+├── plot_hist.py            /* Plot histogram for dataset */
+```
 
 ## Run Locally
 
@@ -42,6 +64,20 @@ Unzip and put it in folder dataset
   mkdir dataset
   cp /path/to/dataset/FLIR_Aligned /path/to/project/dataset/FLIR_Aligned
 ```
+
+
+## Plot Histogram
+
+```bash
+  python3 plot_hist.py
+```
+
+<p align="center">
+  <img src="assets/pixel_distribution.PNG" alt="Ảnh 1" width="45%"/>
+  <img src="assets/class_distribution.PNG" alt="Ảnh 2" width="45%"/>
+</p>
+
+
 ## Training Pipeline
 ### 1. Training individual branch with type of image (RGB or thermal) respectively for each type of model (teacher and student)
 - file: `train_branch.py`

@@ -152,5 +152,5 @@ class Args:
 
 
 ## Authors
-- [tuyen.dn242305m@sis.hust.edu.vn](https://scholar.google.com/citations?hl=en&user=o8w6IZ4AAAAJ)
-- [tri-nhu.do@polymtl.ca](https://scholar.google.com/citations?hl=en&user=cwdP-oYAAAAJ)
+- Ngoc Tuyen Do [tuyen.dn242305m@sis.hust.edu.vn](https://scholar.google.com/citations?hl=en&user=o8w6IZ4AAAAJ)
+- Tri Nhu Do [tri-nhu.do@polymtl.ca](https://scholar.google.com/citations?hl=en&user=cwdP-oYAAAAJ)
